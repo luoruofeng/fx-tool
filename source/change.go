@@ -37,7 +37,7 @@ func checkDir(ctx context.Context, path string) {
 	fmt.Println("开始检查目录", path)
 
 	filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
-		filename, err := filepath.Abs(info.Name())
+		filename := info.Name()
 		if err != nil {
 			fmt.Println("文件路径不存在", path, err)
 			util.Exit()
@@ -55,7 +55,7 @@ func checkDir(ctx context.Context, path string) {
 			strings.HasSuffix(filename, ".mod") ||
 			strings.HasSuffix(filename, "Makefile") ||
 			strings.HasSuffix(filename, "LICENSE") {
-			fmt.Println("replacing", filename)
+			fmt.Println("replacing", path)
 			if err := replaceContent(path); err != nil {
 				fmt.Println("文件内容替换失败", filename, err)
 				util.Exit()

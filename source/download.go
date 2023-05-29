@@ -8,6 +8,8 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+
+	"github.com/luoruofeng/fx-tool/git"
 )
 
 func showRound(ctx context.Context) {
@@ -51,17 +53,13 @@ func print(ctx context.Context, stdout io.ReadCloser) {
 		}
 	}
 }
-
 func Download(ctx context.Context, url string, branch string) {
-
-	cmdItems := strings.Fields("git config --global http.sslVerify false")
-	cmd := exec.Command(cmdItems[0], cmdItems[1:]...)
-	cmd.Start()
-	cmd.Wait()
+	git.SslVerify(false)
+	defer git.SslVerify(true)
 
 	cmdLine := fmt.Sprintf("git clone -b %s %s --progress", branch, url)
-	cmdItems = strings.Fields(cmdLine)
-	cmd = exec.Command(cmdItems[0], cmdItems[1:]...)
+	cmdItems := strings.Fields(cmdLine)
+	cmd := exec.Command(cmdItems[0], cmdItems[1:]...)
 	stdout, _ := cmd.StdoutPipe()
 	stderr, _ := cmd.StderrPipe()
 	defer stderr.Close()
@@ -76,10 +74,6 @@ func Download(ctx context.Context, url string, branch string) {
 	//等结束
 	cmd.Wait()
 
-	cmdItems = strings.Fields("git config --global http.sslVerify true")
-	cmd = exec.Command(cmdItems[0], cmdItems[1:]...)
-	cmd.Start()
-	cmd.Wait()
 }
 
 func Install(ctx context.Context, url string, branch string) {
