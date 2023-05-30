@@ -5,11 +5,13 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"strings"
 	"time"
 
 	"github.com/luoruofeng/fx-tool/git"
+	"github.com/luoruofeng/fx-tool/util"
 )
 
 func showRound(ctx context.Context) {
@@ -17,6 +19,7 @@ func showRound(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
+			fmt.Println("执行超时...")
 			return
 		default:
 			for _, v := range c {
@@ -32,6 +35,7 @@ func print(ctx context.Context, stdout io.ReadCloser) {
 	for {
 		select {
 		case <-ctx.Done():
+			fmt.Println("执行超时...")
 			return
 		default:
 			bs, _, err := r.ReadLine()
@@ -65,6 +69,18 @@ func Download(ctx context.Context, url string, branch string) {
 	defer stderr.Close()
 	defer stdout.Close()
 	cmd.Start()
+	go func() {
+		<-ctx.Done()
+		fmt.Println("执行超时...")
+		err := cmd.Process.Signal(os.Interrupt)
+		if err != nil {
+			err := cmd.Process.Kill()
+			if err != nil {
+				fmt.Println("killing process...", err)
+			}
+		}
+		util.Exit()
+	}()
 	//显示loading符号
 	go showRound(ctx)
 	//打印标准输出

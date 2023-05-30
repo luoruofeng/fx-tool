@@ -36,7 +36,19 @@ func replaceContent(path string) error {
 func checkDir(ctx context.Context, path string) {
 	fmt.Println("开始检查目录", path)
 
+	isTimeout := false
+
+	go func() {
+		<-ctx.Done()
+		fmt.Println("执行超时...")
+		isTimeout = true
+	}()
+
 	filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
+		if isTimeout {
+			fmt.Println("检查目录超时,请检查网络连接")
+			util.Exit()
+		}
 		filename := info.Name()
 		if err != nil {
 			fmt.Println("文件路径不存在", path, err)
