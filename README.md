@@ -1,18 +1,21 @@
 # fx-tool
-该项目皆在使用命令行快速搭建go项目，搭建的项目将会使用Fx框架做为项目主体。
 
-目前go的常用框架都会有过度封装的问题。我不认同这些框架的做法。比较喜欢uber出的fx框架，简单，规范。但是每次搭建都很麻烦。故写了该项目，来快熟搭建fx的项目。后续我会将常用的库都以模块的形式集成进来。    
+### 主旨
+* 项目皆在使用命令行`快速搭建go项目`，搭建的项目将会使用`Fx框架`做为项目主体，并且做到了`模块化，超轻量，少封装`。 
 
-基础版本包含功能如下：    
-https://github.com/luoruofeng/fxdemo#basic%E5%88%86%E6%94%AF%E6%8F%90%E4%BE%9B%E7%9A%84%E5%8A%9F%E8%83%BD
+### 痛点
+* 该项目将解决这些痛点：`go常用整体框架问题框架中的三方模块过度封装。`*学习成本巨高。使用原生技术不香吗？  但凡go做较大的项目都会继承一堆三方模块，例如：GRPC ETCD CONCEL等等，使用过度封装的框架不仅要学如何使用三方模块本身，还需要学习框架所封装的三方模块的使用方法。* 该项目将会让这些问题不在困扰你。
 
-常用三方库模块：   
-https://github.com/luoruofeng/fx-component        
+### 特色
+1. uber的fx框架非常出色，简单，轻量，规范。使用该脚手架可以来快速搭建fx的项目。  
+2. 以最原生的方法使用集成到项目中的三方库，并且自带三方库的配置文件，docker启动文件。免去配置三方库的烦恼。欢迎大家一起来添加[常用三方模块](https://github.com/luoruofeng/fx-component)。     
    
-# 脚手架安装    
 
-执行条件:安装了go    
+<br>
 
+---
+    
+## 脚手架安装        
 ```shell
 # 下载项目
 git clone https://github.com/luoruofeng/fx-tool.git
@@ -28,8 +31,10 @@ cd ..
 rm -rf fx-tool
 ```
 
-# 脚手架使用方法
-创建项目
+<br>
+
+## 脚手架使用方法
+* 创建项目
 ```shell
 # 项目项目的URL格式如： github.com/org_name/project_name
 fx-tool init -url="项目项目的URL"
@@ -38,7 +43,7 @@ fx-tool init -url="项目项目的URL"
 fx-tool init -url="github.com/luoruofeng/xxxproj"
 ```
   
-创建带三方模块的项目
+* 创建带三方模块的项目
 ```shell
 # 具体有哪些常用三方库模块，以及使用方法，参考上方链接。
 fx-tool init -url="项目项目的URL" 模块名称...
@@ -47,7 +52,7 @@ fx-tool init -url="项目项目的URL" 模块名称...
 fx-tool init -url="项目项目的URL" grpc consul
 ```
 
-对已有项目添加模块
+* 对已有项目添加模块
 ```shell
 # 如果需要对一个已有的项目添加模块：
 cd 已经使用fx-tool创建好的项目
@@ -58,8 +63,25 @@ cd xxxproj
 fx-tool add etcd kafka
 ```
 
-# 项目使用说明
+<br>
+<br>
+
+---
 
 
-# 项目结构说明
-https://github.com/luoruofeng/fxdemo#%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E
+## 项目使用说明   
+### [运行项目](https://github.com/luoruofeng/fxdemo#%E8%BF%90%E8%A1%8C)  
+
+<br>
+
+### [项目教程](https://github.com/luoruofeng/fxdemo#%E6%95%99%E7%A8%8B)  
+
+<br>
+
+### [基础版的项目结构](https://github.com/luoruofeng/fxdemo#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84)  
+
+<br>
+
+### [三方模块](https://github.com/luoruofeng/fx-component)
+
+<br>
