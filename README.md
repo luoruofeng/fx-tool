@@ -1,6 +1,5 @@
 # fx-tool
 
-![Alt text](https://github.com/luoruofeng/fx-tool/blob/master/logo.png?raw=true)
 ![Image text](https://github.com/luoruofeng/fx-tool/blob/master/logo.png?raw=true)
 
 ### 主旨
