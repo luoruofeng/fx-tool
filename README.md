@@ -1,6 +1,7 @@
 # fx-tool
 
-![Alt text](image link)
+![Alt text](https://github.com/luoruofeng/fx-tool/blob/master/logo.png?raw=true)
+![Image text](https://github.com/luoruofeng/fx-tool/blob/master/logo.png?raw=true)
 
 ### 主旨
 * 项目皆在使用命令行`快速搭建go项目`，搭建的项目将会使用`Fx框架`做为项目主体，并且做到了`模块化，超轻量，少封装`。 
