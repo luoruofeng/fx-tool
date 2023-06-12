@@ -1,6 +1,6 @@
 # fx-tool
 
-![Image text](https://github.com/luoruofeng/fx-tool/blob/master/logo.png?raw=true)
+![Image text](https://github.com/luoruofeng/fx-tool/blob/master/logo.jpg?raw=true)
 
 ### 主旨
 * 项目皆在使用命令行`快速搭建go项目`，搭建的项目将会使用`Fx框架`做为项目主体，并且做到了`模块化，超轻量，少封装`。 
@@ -39,19 +39,19 @@ rm -rf fx-tool
 * 创建项目
 ```shell
 # 项目项目的URL格式如： github.com/org_name/project_name
-fx-tool init -url="项目项目的URL"
+fx-tool initial -url="项目项目的URL"
 
 # 例如：
-fx-tool init -url="github.com/luoruofeng/xxxproj"
+fx-tool initial -url="github.com/luoruofeng/xxxproj"
 ```
   
 * 创建带三方模块的项目
 ```shell
 # 具体有哪些常用三方库模块，以及使用方法，参考上方链接。
-fx-tool init -url="项目项目的URL" 模块名称...
+fx-tool initial -url="项目项目的URL" 模块名称...
 
 # 例如：grpc consul 可以这样写。
-fx-tool init -url="项目项目的URL" grpc consul
+fx-tool initial -url="项目项目的URL" grpc consul
 ```
 
 * 对已有项目添加模块

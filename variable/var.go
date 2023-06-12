@@ -1,6 +1,8 @@
 package variable
 
 var (
-	NewURL      = ""
-	ProjectName = ""
+	NewURL           = ""
+	ProjectName      = ""
+	ComponentName    = ""
+	ComponentVersion = ""
 )

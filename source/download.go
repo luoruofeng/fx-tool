@@ -57,11 +57,11 @@ func print(ctx context.Context, stdout io.ReadCloser) {
 		}
 	}
 }
-func Download(ctx context.Context, url string, branch string) {
+func Download(ctx context.Context, url string, branch string, dir string) {
 	git.SslVerify(false)
 	defer git.SslVerify(true)
 
-	cmdLine := fmt.Sprintf("git clone -b %s %s --progress", branch, url)
+	cmdLine := fmt.Sprintf("git clone -b %s %s %s --progress", branch, url, dir)
 	cmdItems := strings.Fields(cmdLine)
 	cmd := exec.Command(cmdItems[0], cmdItems[1:]...)
 	stdout, _ := cmd.StdoutPipe()

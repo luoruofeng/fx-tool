@@ -37,8 +37,12 @@ func CloseExit() {
 }
 
 func DeleteProject() {
-	Delete(variable.ProjectName)
-	Delete("./fxdemo")
+	if variable.ComponentName == "" && variable.ProjectName == "" {
+		Delete(variable.ProjectName)
+		Delete("./fxdemo")
+	} else {
+		Delete(variable.ProjectName + "/" + variable.ComponentName)
+	}
 }
 
 func ReadyExit(wgp *sync.WaitGroup) {

@@ -10,10 +10,9 @@ import (
 	"strings"
 
 	"github.com/luoruofeng/fx-tool/util"
-	"github.com/luoruofeng/fx-tool/variable"
 )
 
-func replaceContent(path string) error {
+func replaceContent(path string, replacePair map[string]string) error {
 	// 读取文件内容
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -21,8 +20,10 @@ func replaceContent(path string) error {
 	}
 
 	// 替换字符串
-	newContent := strings.ReplaceAll(string(content), "github.com/luoruofeng/fxdemo", variable.NewURL)
-	newContent = strings.ReplaceAll(newContent, "fxdemo", variable.ProjectName)
+	newContent := string(content)
+	for k, v := range replacePair {
+		newContent = strings.ReplaceAll(newContent, k, v)
+	}
 
 	// 写入文件
 	err = ioutil.WriteFile(path, []byte(newContent), 0644)
@@ -33,7 +34,7 @@ func replaceContent(path string) error {
 	return nil
 }
 
-func checkDir(ctx context.Context, path string) {
+func checkDir(ctx context.Context, path string, replacePair map[string]string) {
 	fmt.Println("开始检查目录", path)
 
 	isTimeout := false
@@ -57,6 +58,7 @@ func checkDir(ctx context.Context, path string) {
 		if filename == ".git" ||
 			filename == ".gitignore" ||
 			filename == "LICENSE" {
+			fmt.Println("删除不需要的文件", filename)
 			RemoveFolder(filename)
 		}
 		if info.IsDir() {
@@ -68,7 +70,7 @@ func checkDir(ctx context.Context, path string) {
 			strings.HasSuffix(filename, "Makefile") ||
 			strings.HasSuffix(filename, "LICENSE") {
 			fmt.Println("replacing", path)
-			if err := replaceContent(path); err != nil {
+			if err := replaceContent(path, replacePair); err != nil {
 				fmt.Println("文件内容替换失败", filename, err)
 				util.Exit()
 			}
@@ -77,22 +79,25 @@ func checkDir(ctx context.Context, path string) {
 	})
 }
 
-func ChangeURL(ctx context.Context, new string) {
-	err := os.Chmod("./fxdemo", 0666)
+func ChangeDirName(ctx context.Context, new string, targetName string, newName string) {
+	err := os.Chmod(targetName, 0666)
 	if err != nil {
-		fmt.Println("项目权限修改失败", err)
+		fmt.Println("项目权限修改失败", targetName, err)
 		util.Exit()
 	}
-	err = os.Rename("./fxdemo", "./"+variable.ProjectName)
+	err = os.Rename(targetName, newName)
 	if err != nil {
-		fmt.Println("项目重命名失败", err)
+		fmt.Println("项目重命名失败", targetName, err)
 		util.Exit()
 	}
-	path, _ := filepath.Abs("./" + variable.ProjectName)
-	if fi, err := os.Stat("./" + variable.ProjectName); err == nil && fi.IsDir() {
-		checkDir(ctx, path)
+}
+
+func ReplaceTemplateContent(ctx context.Context, newDirName string, replacePair map[string]string) {
+	path, _ := filepath.Abs(newDirName)
+	if fi, err := os.Stat(newDirName); err == nil && fi.IsDir() {
+		checkDir(ctx, path, replacePair)
 	} else {
-		fmt.Println("无法从github.com获取模版项目,请检查git设置和网络连接", err)
+		fmt.Println("无法从github.com获取模版项目,请检查git设置和网络连接", newDirName, err)
 		util.Exit()
 	}
 }
