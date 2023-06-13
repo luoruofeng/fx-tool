@@ -19,18 +19,9 @@
     
 ## 脚手架安装        
 ```shell
-# 下载项目
-git clone https://github.com/luoruofeng/fx-tool.git
+go install github.com/luoruofeng/fx-tool@latest
+go install -v -ldflags="-w -s" -trimpath -tags netgo -arch=amd64 -os=windows github.com/luoruofeng/fx-tool@latest
 
-# 进入项目
-cd  fx-tool
-
-# 安装
-go install .
-
-# #删除源码
-cd ..
-rm -rf fx-tool
 ```
 
 <br>

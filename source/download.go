@@ -19,7 +19,7 @@ func showRound(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			fmt.Println("执行超时...")
+			fmt.Println("执行超时.....")
 			return
 		default:
 			for _, v := range c {
@@ -35,7 +35,7 @@ func print(ctx context.Context, stdout io.ReadCloser) {
 	for {
 		select {
 		case <-ctx.Done():
-			fmt.Println("执行超时...")
+			fmt.Println("执行超时.......")
 			return
 		default:
 			bs, _, err := r.ReadLine()
@@ -71,7 +71,7 @@ func Download(ctx context.Context, url string, branch string, dir string) {
 	cmd.Start()
 	go func() {
 		<-ctx.Done()
-		fmt.Println("执行超时...")
+		fmt.Println("执行超时..")
 		err := cmd.Process.Signal(os.Interrupt)
 		if err != nil {
 			err := cmd.Process.Kill()

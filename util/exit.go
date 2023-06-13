@@ -39,7 +39,6 @@ func CloseExit() {
 func DeleteProject() {
 	if variable.ComponentName == "" && variable.ProjectName == "" {
 		Delete(variable.ProjectName)
-		Delete("./fxdemo")
 	} else {
 		Delete(variable.ProjectName + "/" + variable.ComponentName)
 	}

@@ -45,7 +45,6 @@ func GetFlag() (string, string, []string) {
 		if len(addCmd.Args()) > 0 {
 			args = addCmd.Args()
 		}
-		fmt.Println("添加新的组件", args)
 		pattern := ".*-.*"
 		re := regexp.MustCompile(pattern)
 		for _, a := range args {
