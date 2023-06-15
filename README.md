@@ -75,6 +75,6 @@ fx-tool add etcd kafka
 
 <br>
 
-### [三方模块](https://github.com/luoruofeng/fx-component)
+### [导入三方模块](https://github.com/luoruofeng/fx-component#fx-tool%E5%AF%BC%E5%85%A5%E5%BA%93)
 
 <br>

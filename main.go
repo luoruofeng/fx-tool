@@ -52,7 +52,7 @@ func getComponentDir() (string, error) {
 func addComponent(name string) error {
 	fmt.Println("开始下载组件", name)
 
-	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Duration(time.Minute)*15)
+	ctx, cancelFunc := context.WithTimeout(context.Background(), time.Duration(time.Minute)*25)
 	defer cancelFunc()
 
 	// 下载模版项目
@@ -65,10 +65,15 @@ func addComponent(name string) error {
 	replacePairs := source.NewReplacePairs(
 		source.ReplacePair{
 			Old: "github.com/luoruofeng/fx-component",
-			New: variable.NewURL + "/component",
+			New: variable.NewURL + "/component/" + variable.ComponentName,
 		},
 	)
 	source.ReplaceTemplateContent(ctx, componetDir, replacePairs)
+
+	// 删除go.mod go.sum
+	source.DeleteModuleFiles(componetDir)
+	// 项目添加requiment.txt依赖
+	source.GetRequirement(ctx, componetDir)
 	return nil
 }
 
@@ -90,7 +95,7 @@ func main() {
 		defer cancelFunc()
 
 		// 下载模版项目
-		source.Download(ctx, "https://github.com/luoruofeng/fxdemo.git", "basic", "./"+variable.ProjectName)
+		source.Download(ctx, "https://github.com/luoruofeng/fxdemo.git", "master", "./"+variable.ProjectName)
 		// 修改项目文件夹名称
 		// source.ChangeDirName(ctx, url, "./fxdemo", variable.ProjectName)
 		// 替换项目文件内容
