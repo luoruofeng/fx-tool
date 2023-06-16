@@ -20,7 +20,6 @@
 ## 脚手架安装        
 ```shell
 go install github.com/luoruofeng/fx-tool@latest
-go install -v -ldflags="-w -s" -trimpath -tags netgo -arch=amd64 -os=windows github.com/luoruofeng/fx-tool@latest
 
 ```
 
